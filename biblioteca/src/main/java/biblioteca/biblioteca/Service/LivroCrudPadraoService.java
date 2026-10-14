@@ -66,7 +66,7 @@ public class LivroCrudPadraoService implements LivroCrudService {
         Livro livro = obterLivroExistente(id);
 
         livro.setAno(livroPostPutDto.getAno());
-        livro.setAutor(livroPostPutDto.getAutor());
+        livro.setAutorId(livroPostPutDto.getAutorId());
         livro.setEdicao(livroPostPutDto.getEdicao());
         livro.setTitulo(livroPostPutDto.getTitulo());
         return modelMapper.map(livroRepository.save(livro), LivroResponseDto.class);
