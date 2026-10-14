@@ -32,15 +32,15 @@ public class LivroV1Controller {
         @RequestParam(required = false) String isbn, @RequestParam(required = false) String titulo
     ) {
 
-        boolean isIsbn = !isbn != null && isbn.isBlank();
-        boolean isTitulo = !titulo != null && titulo.isBlank();
+        boolean isIsbn = isbn != null && !isbn.isBlank();
+        boolean isTitulo = titulo != null && !titulo.isBlank();
 
         if (isIsbn && isTitulo) {
-            return ResponseEntity.status(HttpStatus.OK).body(livroCrudService.buscarLivrosByTituloAndIsbn(isbn, titulo));
+            return ResponseEntity.status(HttpStatus.OK).body(livroCrudService.buscarTodosLivrosIsbnTitulo(isbn, titulo));
         } else if (isIsbn) {
-            return ResponseEntity.status(HttpStatus.OK).body(livroCrudService.buscarLivrosByIsbn(isbn));
+            return ResponseEntity.status(HttpStatus.OK).body(livroCrudService.buscarLivrosIsbn(isbn));
         } else if (isTitulo) {
-            return ResponseEntity.status(HttpStatus.OK).body(livroCrudService.buscarLivrosByTitulo(titulo));
+            return ResponseEntity.status(HttpStatus.OK).body(livroCrudService.buscarLivrosTitulo(titulo));
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(livroCrudService.buscarTodosLivros());

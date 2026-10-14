@@ -28,7 +28,7 @@ public class Autor {
     private String nacionalidade;
 
     // Adicione a relação com Livro aqui
-    @OneToMany
+    // @OneToMany
     // casa
 
 }

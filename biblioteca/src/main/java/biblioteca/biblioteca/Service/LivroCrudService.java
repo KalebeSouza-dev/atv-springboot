@@ -9,19 +9,17 @@ public interface LivroCrudService {
 
     LivroResponseDto criarLivro(LivroPostPutDto livroPostPutDto); 
 
-    List<LivroResponseDto> buscarLivrosByTituloAndIsbn(String isbn, String Titulo);
-    
-    List<LivroResponseDto> buscarLivrosByIsbn(String isbn);
-
-    List<LivroResponseDto> buscarLivrosByTitulo(String titulo);
-
     List<LivroResponseDto> buscarTodosLivros();
+
+    List<LivroResponseDto> buscarLivrosIsbn(String isbn);
+    
+    List<LivroResponseDto> buscarLivrosTitulo(String titulo);
+
+    List<LivroResponseDto> buscarTodosLivrosIsbnTitulo(String isbn, String Titulo);
 
     LivroResponseDto buscarLivro(Long id);
 
-    LivroPostPutDto atualizarLivro(Long id);
+    LivroResponseDto atualizarLivro(Long id, LivroPostPutDto livroPostPutDto);
 
     void removerLivro(Long id);
-
-    void removerLivrosByAutor(String autor);
 }
