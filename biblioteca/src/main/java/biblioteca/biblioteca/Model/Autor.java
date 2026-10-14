@@ -29,7 +29,8 @@ public class Autor {
     private String nacionalidade;
 
     // Adicione a relação com Livro aqui
-    @OneToMany(mappedBy = "autor")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "ds_autor", referencedColumnName = "id", insertable = false, updatable = false)
     private List<Livro> livros;
 
 }

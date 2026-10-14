@@ -1,8 +1,5 @@
 package biblioteca.biblioteca.Model;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,9 +22,7 @@ public class Livro {
     @JsonProperty("id")
     private Long id;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "ds_autor", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @Column(name = "ds_autor", nullable = false)
     private Long autorId;
 
     @Column(name = "ds_isbn", nullable = false)

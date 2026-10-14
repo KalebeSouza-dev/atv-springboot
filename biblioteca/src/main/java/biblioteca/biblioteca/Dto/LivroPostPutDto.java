@@ -3,6 +3,7 @@ package biblioteca.biblioteca.Dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,14 +25,14 @@ public class LivroPostPutDto {
     private String titulo;
 
     @JsonProperty("autorId")
-    @NotBlank(message = "O autor do livro não pode ser vazio")
+    @NotNull(message = "O autor do livro não pode ser vazio")
     private Long autorId;
 
     @JsonProperty("ano")
-    @NotBlank(message = "O ano do livro não pode ser vazia")
-    private int ano;
+    @NotNull(message = "O ano do livro não pode ser vazio")
+    private Integer ano;
 
     @JsonProperty("edicao")
-    @NotBlank(message = "A edicao do livro não pode ser vazia")
-    private int edicao;
+    @NotNull(message = "A edição do livro não pode ser vazia")
+    private Integer edicao;
 }
