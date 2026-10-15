@@ -28,9 +28,8 @@ public class Autor {
     @JsonProperty("nacionalidade")
     private String nacionalidade;
 
-    // Adicione a relação com Livro aqui
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "ds_autor", referencedColumnName = "id", insertable = false, updatable = false)
+    // Um autor pode ter vários livros
+    @OneToMany(mappedBy = "autor", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Livro> livros;
 
 }

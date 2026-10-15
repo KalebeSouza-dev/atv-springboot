@@ -22,8 +22,9 @@ public class Livro {
     @JsonProperty("id")
     private Long id;
 
-    @Column(name = "ds_autor", nullable = false)
-    private Long autorId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "ds_autor", nullable = false)
+    private Autor autor;
 
     @Column(name = "ds_isbn", nullable = false)
     @JsonProperty("isbn")
