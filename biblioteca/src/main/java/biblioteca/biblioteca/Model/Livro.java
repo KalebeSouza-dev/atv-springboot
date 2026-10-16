@@ -18,17 +18,13 @@ public class Livro {
     // (ISBN, Título, Autor, Ano e Edição)
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonProperty("id")
-    private Long id;
+    @Column(name = "ds_isbn", nullable = false)
+    @JsonProperty("isbn")
+    private String isbn;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "ds_autor", nullable = false)
     private Autor autor;
-
-    @Column(name = "ds_isbn", nullable = false)
-    @JsonProperty("isbn")
-    private String isbn;
 
     @Column(name = "ds_titulo", nullable = false)
     @JsonProperty("titulo")

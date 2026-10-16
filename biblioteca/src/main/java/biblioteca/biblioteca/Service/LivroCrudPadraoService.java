@@ -1,6 +1,7 @@
 package biblioteca.biblioteca.Service;
 
-import biblioteca.biblioteca.Dto.LivroPostPutDto;
+import biblioteca.biblioteca.Dto.LivroPostDto;
+import biblioteca.biblioteca.Dto.LivroPutDto;
 import biblioteca.biblioteca.Dto.LivroResponseDto;
 import biblioteca.biblioteca.Model.Autor;
 import biblioteca.biblioteca.Model.Livro;
@@ -27,10 +28,12 @@ public class LivroCrudPadraoService implements LivroCrudService {
     AutorRepository autorRepository;
 
     @Override
-    public LivroResponseDto criarLivro(LivroPostPutDto livroPostPutDto) {
-        Autor autor = obterAutorExistente(livroPostPutDto.getAutorId());
-        Livro livro = modelMapper.map(livroPostPutDto, Livro.class);
-        livro.setId(null);
+    public LivroResponseDto criarLivro(LivroPostDto livroPostDto) {
+        if (livroRepository.existsById(livroPostDto.getIsbn())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "ISBN já cadastrado");
+        }
+        Autor autor = obterAutorExistente(livroPostDto.getAutorId());
+        Livro livro = modelMapper.map(livroPostDto, Livro.class);
         livro.setAutor(autor);
         return paraResponse(livroRepository.save(livro));
     }
@@ -65,32 +68,31 @@ public class LivroCrudPadraoService implements LivroCrudService {
     }
 
     @Override
-    public LivroResponseDto buscarLivro(Long id) {
-        return paraResponse(obterLivroExistente(id));
+    public LivroResponseDto buscarLivro(String isbn) {
+        return paraResponse(obterLivroExistente(isbn));
     }
 
     @Override
-    public LivroResponseDto atualizarLivro(Long id, LivroPostPutDto livroPostPutDto) {
-        Livro livro = obterLivroExistente(id);
+    public LivroResponseDto atualizarLivro(String isbn, LivroPutDto livroPutDto) {
+        Livro livro = obterLivroExistente(isbn);
 
-        Autor autor = obterAutorExistente(livroPostPutDto.getAutorId());
-        livro.setAno(livroPostPutDto.getAno());
+        Autor autor = obterAutorExistente(livroPutDto.getAutorId());
+        livro.setAno(livroPutDto.getAno());
         livro.setAutor(autor);
-        livro.setEdicao(livroPostPutDto.getEdicao());
-        livro.setTitulo(livroPostPutDto.getTitulo());
-        livro.setIsbn(livroPostPutDto.getIsbn());
+        livro.setEdicao(livroPutDto.getEdicao());
+        livro.setTitulo(livroPutDto.getTitulo());
         
         return paraResponse(livroRepository.save(livro));
     }
 
     @Override
-    public void removerLivro(Long id) {
-        livroRepository.delete(obterLivroExistente(id));
+    public void removerLivro(String isbn) {
+        livroRepository.delete(obterLivroExistente(isbn));
     }
 
-    // id inexistente = 404
-    private Livro obterLivroExistente(Long id) {
-        return livroRepository.findById(id)
+    // isbn inexistente = 404
+    private Livro obterLivroExistente(String isbn) {
+        return livroRepository.findById(isbn)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Livro não encontrado"));
     }
 
