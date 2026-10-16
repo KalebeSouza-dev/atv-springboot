@@ -8,9 +8,9 @@ import java.util.List;
 
 @Repository
 public interface LivroRepository extends JpaRepository<Livro, String> {
-    public List<Livro> findByIsbnContaining(String isbn);
+    public List<Livro> findByIsbnContainingIgnoreCase(String isbn);
 
-    public List<Livro> findByTituloContaining(String titulo);
+    public List<Livro> findByTituloContainingIgnoreCase(String titulo);
 
-    public List<Livro> findByIsbnContainingAndTituloContaining(String isbn, String titulo);
+    public List<Livro> findByIsbnContainingIgnoreCaseAndTituloContainingIgnoreCase(String isbn, String titulo);
 }

@@ -47,21 +47,21 @@ public class LivroCrudPadraoService implements LivroCrudService {
     }
  
     public List<LivroResponseDto> buscarLivrosIsbn(String isbn) {
-        return livroRepository.findByIsbnContaining(isbn)
+        return livroRepository.findByIsbnContainingIgnoreCase(isbn)
                 .stream()
                 .map(this::paraResponse)
                 .toList();
     }
 
     public List<LivroResponseDto> buscarLivrosTitulo(String titulo) {
-        return livroRepository.findByTituloContaining(titulo)
+        return livroRepository.findByTituloContainingIgnoreCase(titulo)
                 .stream()
                 .map(this::paraResponse)
                 .toList();
     }
 
     public List<LivroResponseDto> buscarTodosLivrosIsbnTitulo(String isbn, String titulo) {
-        return livroRepository.findByIsbnContainingAndTituloContaining(isbn, titulo)
+        return livroRepository.findByIsbnContainingIgnoreCaseAndTituloContainingIgnoreCase(isbn, titulo)
                 .stream()
                 .map(this::paraResponse)
                 .toList();
